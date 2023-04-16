@@ -10,7 +10,7 @@ def run_services(site_ports, subdomains):
             command = ['whatweb', url]
             result = subprocess.run(command, capture_output=True, text=True)
             for line in result.stdout.splitlines():
-                if domain in line and line not in unique_lines:
+                if domain in line and "The plain HTTP request was sent to HTTPS port" not in line and line not in unique_lines:
                     print(line)
                     unique_lines.add(line)
 
@@ -20,6 +20,6 @@ def run_services(site_ports, subdomains):
         command = ['whatweb', url]
         result = subprocess.run(command, capture_output=True, text=True)
         for line in result.stdout.splitlines():
-            if subdomain in line and line not in unique_lines:
+            if subdomain in line and "The plain HTTP request was sent to HTTPS port" not in line and line not in unique_lines:
                 print(line)
                 unique_lines.add(line)
